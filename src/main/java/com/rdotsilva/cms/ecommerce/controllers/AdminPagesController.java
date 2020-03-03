@@ -29,8 +29,8 @@ public class AdminPagesController {
     @GetMapping
     public String index(Model model) {
 
-        // Get a list of pages using the page repo
-        List<Page> pages = pageRepository.findAll();
+        // Get a list of pages (sorted asc order) using the page repo
+        List<Page> pages = pageRepository.findAllByOrderBySortingAsc();
 
         // Create a model for use in the view
         model.addAttribute("pages", pages);
@@ -137,5 +137,22 @@ public class AdminPagesController {
         redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 
         return "redirect:/admin/pages";
+    }
+
+    // Use @ResponseBody to return the response text "ok" to jquery.
+    @PostMapping("/reorder")
+    public @ResponseBody String reorder(@RequestParam("id[]") int[] id) {
+
+        int count = 1;
+        Page page;
+
+        for (int pageId : id) {
+            page = pageRepository.getOne(pageId);
+            page.setSorting(count);
+            pageRepository.save(page);
+            count++;
+        }
+
+        return "ok";
     }
 }
