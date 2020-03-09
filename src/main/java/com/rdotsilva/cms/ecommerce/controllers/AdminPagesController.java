@@ -1,7 +1,7 @@
 package com.rdotsilva.cms.ecommerce.controllers;
 
 import com.rdotsilva.cms.ecommerce.models.data.Page;
-import com.rdotsilva.cms.ecommerce.models.data.PageRepository;
+import com.rdotsilva.cms.ecommerce.models.PageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
