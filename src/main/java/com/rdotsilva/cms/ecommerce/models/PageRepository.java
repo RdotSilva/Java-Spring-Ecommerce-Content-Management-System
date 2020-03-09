@@ -1,5 +1,6 @@
-package com.rdotsilva.cms.ecommerce.models.data;
+package com.rdotsilva.cms.ecommerce.models;
 
+import com.rdotsilva.cms.ecommerce.models.data.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

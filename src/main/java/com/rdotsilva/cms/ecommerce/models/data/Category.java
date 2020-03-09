@@ -21,5 +21,6 @@ public class Category {
 
     private String slug;
 
+    
     private int sorting;
 }
