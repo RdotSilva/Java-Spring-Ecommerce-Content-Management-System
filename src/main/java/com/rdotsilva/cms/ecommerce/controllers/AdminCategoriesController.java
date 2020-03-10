@@ -121,4 +121,17 @@ public class AdminCategoriesController {
         // Redirect when done
         return "redirect:/admin/categories/edit/" + category.getId();
     }
+
+    // Delete a category
+    @GetMapping("/delete/{id}")
+    public String edit(@PathVariable int id, RedirectAttributes redirectAttributes) {
+
+        Category category = categoryRepository.getOne(id);
+        categoryRepository.deleteById(id);
+
+        redirectAttributes.addFlashAttribute("message", category.getName() + " category deleted!");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+
+        return "redirect:/admin/categories";
+    }
 }
