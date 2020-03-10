@@ -16,11 +16,11 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    // Use size for validation
     @Size(min=2, message = "Name must be at least 2 characters long")
     private String name;
 
     private String slug;
 
-    
     private int sorting;
 }
