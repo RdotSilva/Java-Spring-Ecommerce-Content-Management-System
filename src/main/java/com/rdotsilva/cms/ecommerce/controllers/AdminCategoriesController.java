@@ -25,4 +25,10 @@ public class AdminCategoriesController {
 
         return "admin/categories/index";
     }
+
+    @GetMapping("/add")
+    public String add(Category category) {
+
+        return "admin/categories/add";
+    }
 }
