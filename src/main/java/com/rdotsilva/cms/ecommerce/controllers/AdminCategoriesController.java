@@ -87,4 +87,38 @@ public class AdminCategoriesController {
 
         return "admin/categories/edit";
     }
+
+    @PostMapping("/edit")
+    public String edit(@Valid Category category, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+
+        Category currentCategory = categoryRepository.getOne(category.getId());
+
+        // Check page for errors
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categoryName", currentCategory.getName());
+            return "admin/categories/edit";
+        }
+
+        // Display Page added if successful
+        redirectAttributes.addFlashAttribute("message", "Category Edited");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+
+        // Construct category slug
+        String slug = category.getName().toLowerCase().replace(" ", "-");
+
+        Category categoryExists = categoryRepository.findByName(category.getName());
+
+        // Check if category exists, if so then display errors, otherwise set the new category slug and save repo
+        if (categoryExists != null) {
+            redirectAttributes.addFlashAttribute("message", "Category already exists, choose another slug");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+        } else {
+            category.setSlug(slug);
+
+            categoryRepository.save(category);
+        }
+
+        // Redirect when done
+        return "redirect:/admin/categories/edit/" + category.getId();
+    }
 }
