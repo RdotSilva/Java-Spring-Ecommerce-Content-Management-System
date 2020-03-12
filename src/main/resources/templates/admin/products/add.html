@@ -36,6 +36,12 @@
                 <input type="file class=form-control th:name=file">
             </div>
 
+            <div class="form-group">
+                <label for="">Price</label>
+                <input type="text" class="form-control" th:field="*{price}" placeholder="20 or 20.99">
+                <span class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+            </div>
+
             <button class="btn btn-danger">Add</button>
         </form>
 
