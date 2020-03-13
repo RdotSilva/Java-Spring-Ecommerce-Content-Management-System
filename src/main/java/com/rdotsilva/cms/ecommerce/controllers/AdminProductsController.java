@@ -80,7 +80,28 @@ public class AdminProductsController {
         redirectAttributes.addFlashAttribute("message", "Product Added");
         redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 
-       
+        // Construct product slug
+        String slug = product.getName().toLowerCase().replace(" ", "-");
+
+        Product productExists = productRepository.findBySlug(slug);
+
+        // If image file is not OK send error message
+        if (!fileOK ) {
+            redirectAttributes.addFlashAttribute("message", "Image must be JPG or PNG");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+        }
+        // Check if product exists, if so then display errors, otherwise set the new product slug, new product image, and save repo
+        else if (productExists != null) {
+            redirectAttributes.addFlashAttribute("message", "Product already exists, choose another");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+            redirectAttributes.addFlashAttribute("product", product);
+        } else {
+            product.setSlug(slug);
+            product.setImage(filename);
+
+            productRepository.save(product);
+            Files.write(path, bytes);
+        }
 
         // Redirect when done
         return "redirect:/admin/products/add";
