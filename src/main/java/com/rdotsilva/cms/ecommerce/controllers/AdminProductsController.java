@@ -3,15 +3,22 @@ package com.rdotsilva.cms.ecommerce.controllers;
 import com.rdotsilva.cms.ecommerce.models.CategoryRepository;
 import com.rdotsilva.cms.ecommerce.models.ProductRepository;
 import com.rdotsilva.cms.ecommerce.models.data.Category;
-import com.rdotsilva.cms.ecommerce.models.data.Page;
+import com.rdotsilva.cms.ecommerce.models.data.Product;
 import com.rdotsilva.cms.ecommerce.models.data.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -42,5 +49,14 @@ public class AdminProductsController {
         model.addAttribute("categories", categories);
 
         return "admin/products/add";
+    }
+
+    @PostMapping("/add")
+    public String add(@Valid Product product, BindingResult bindingResult, MultipartFile file, RedirectAttributes redirectAttributes, Model model) {
+
+
+
+        // Redirect when done
+        return "redirect:/admin/products/add";
     }
 }
