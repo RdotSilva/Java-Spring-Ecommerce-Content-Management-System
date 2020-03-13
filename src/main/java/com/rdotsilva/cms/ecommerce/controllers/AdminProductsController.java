@@ -54,6 +54,25 @@ public class AdminProductsController {
     @PostMapping("/add")
     public String add(@Valid Product product, BindingResult bindingResult, MultipartFile file, RedirectAttributes redirectAttributes, Model model) {
 
+        Product currentProduct = productRepository.getOne(product.getId());
+
+        // Check product for errors
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("productName", currentProduct.getName());
+            return "admin/categories/add";
+        }
+
+        // Check image file to make sure it is valid
+        boolean fileOK = false;
+        byte[] bytes = file.getBytes();
+        String filename = file.getOriginalFilename();
+        Path path = Paths.get("src/main/resources/static");
+
+        // Check for JPG or PNG only
+        if (filename.endsWith("jpg") || filename.endsWith("png")) {
+            fileOK = true;
+        }
+
 
 
         // Redirect when done
