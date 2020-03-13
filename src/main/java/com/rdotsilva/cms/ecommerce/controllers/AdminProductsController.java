@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -52,7 +54,7 @@ public class AdminProductsController {
     }
 
     @PostMapping("/add")
-    public String add(@Valid Product product, BindingResult bindingResult, MultipartFile file, RedirectAttributes redirectAttributes, Model model) {
+    public String add(@Valid Product product, BindingResult bindingResult, MultipartFile file, RedirectAttributes redirectAttributes, Model model) throws IOException {
 
         Product currentProduct = productRepository.getOne(product.getId());
 
@@ -74,6 +76,11 @@ public class AdminProductsController {
         }
 
 
+        // Display Product added if successful
+        redirectAttributes.addFlashAttribute("message", "Product Added");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+
+       
 
         // Redirect when done
         return "redirect:/admin/products/add";
