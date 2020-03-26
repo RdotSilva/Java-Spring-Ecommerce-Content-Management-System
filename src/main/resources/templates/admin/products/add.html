@@ -50,9 +50,9 @@
 
             <div class="form-group">
                 <label for="">Category</label>
-                <select th:field="${categoryId}}" class="form-control">
+                <select th:field="*{categoryId}" class="form-control">
                     <option th:value="0">Choose a category</option>
-                    <option th:each="cat : ${categories}" th:value="${cat.id} th:text=${cat.name}"></option>
+                    <option th:each="cat: ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
                 </select>
                 <span class="error" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></span>
             </div>
