@@ -61,7 +61,7 @@ public class AdminProductsController {
         // Check product for errors
         if (bindingResult.hasErrors()) {
             model.addAttribute("productName", currentProduct.getName());
-            return "admin/categories/add";
+            return "admin/products/add";
         }
 
         // Check image file to make sure it is valid
