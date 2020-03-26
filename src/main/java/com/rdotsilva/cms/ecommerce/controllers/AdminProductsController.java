@@ -56,11 +56,12 @@ public class AdminProductsController {
     @PostMapping("/add")
     public String add(@Valid Product product, BindingResult bindingResult, MultipartFile file, RedirectAttributes redirectAttributes, Model model) throws IOException {
 
+        List<Category> categories = categoryRepository.findAll();
+
         Product currentProduct = productRepository.getOne(product.getId());
 
-        // Check product for errors
         if (bindingResult.hasErrors()) {
-            model.addAttribute("productName", currentProduct.getName());
+            model.addAttribute("categories", categories);
             return "admin/products/add";
         }
 
