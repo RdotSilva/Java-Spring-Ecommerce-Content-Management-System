@@ -20,22 +20,22 @@
             </div>
 
             <div class="form-group">
-                <label for="">Name</label>
+                <label for="">Name:</label>
                 <!--  th:field="*{name}" connects with the "name" field located inside entity (Product) -->
                 <input type="text" class="form-control" th:field="*{name}" placeholder="Name">
                 <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
             </div>
 
             <div class="form-group">
-                <label for="">Description</label>
-                <input type="text" class="form-control" th:field="*{description}" placeholder="Description">
+                <label for="">Description:</label>
+                <textarea th:field="*{description}" rows="10" class="form-control" placeholder="Description"></textarea>
                 <span class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
             </div>
 
             <div class="form-group">
-                <label for="">Image</label>
-                <input type="file" class=form-control th:name=file th:id=file">
-                <img src="#" alt="" id="imgPreview1">
+                <label for="">Image:</label>
+                <input type="file" class="form-control" th:name="file" th:id="file">
+                <img class="mt-2" src="#" alt="" id="imgPreview1">
             </div>
 
             <div class="form-group">
