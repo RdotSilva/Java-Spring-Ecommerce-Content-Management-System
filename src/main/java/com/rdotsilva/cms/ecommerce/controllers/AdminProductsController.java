@@ -90,11 +90,14 @@ public class AdminProductsController {
         if (!fileOK ) {
             redirectAttributes.addFlashAttribute("message", "Image must be JPG or PNG");
             redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+            // Make form sticky (stays if there is an error)
+            redirectAttributes.addFlashAttribute("product", product);
         }
         // Check if product exists, if so then display errors, otherwise set the new product slug, new product image, and save repo
         else if (productExists != null) {
             redirectAttributes.addFlashAttribute("message", "Product already exists, choose another");
             redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+            // Make form sticky (stays if there is an error)
             redirectAttributes.addFlashAttribute("product", product);
         } else {
             product.setSlug(slug);
