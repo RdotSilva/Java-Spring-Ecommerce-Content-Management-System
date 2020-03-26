@@ -68,7 +68,7 @@ public class AdminProductsController {
         boolean fileOK = false;
         byte[] bytes = file.getBytes();
         String filename = file.getOriginalFilename();
-        Path path = Paths.get("src/main/resources/static");
+        Path path = Paths.get("src/main/resources/static/media/" + filename);
 
         // Check for JPG or PNG only
         if (filename.endsWith("jpg") || filename.endsWith("png")) {
