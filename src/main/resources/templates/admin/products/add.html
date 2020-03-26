@@ -39,19 +39,19 @@
             </div>
 
             <div class="form-group">
-                <label for="">Price</label>
+                <label for="">Price:</label>
                 <input type="text" class="form-control" th:field="*{price}" placeholder="20 or 20.99">
                 <span class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
             </div>
 
             <div class="form-group">
-                <label for="">Quantity</label>
+                <label for="">Quantity:</label>
                 <input type="text" class="form-control" th:field="*{quantity}" placeholder="Quantity">
                 <span class="error" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></span>
             </div>
 
             <div class="form-group">
-                <label for="">Category</label>
+                <label for="">Category:</label>
                 <select th:field="*{categoryId}" class="form-control">
                     <option th:value="0">Choose a category</option>
                     <option th:each="cat: ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
@@ -70,10 +70,12 @@
 
         // Used to fire off readURL method when image changes (to preview image)
         $(function () {
+
             $("#file").change(function () {
                 readURL(this, '1');
-            })
-        })
+            });
+
+        });
 
     </script>
 
