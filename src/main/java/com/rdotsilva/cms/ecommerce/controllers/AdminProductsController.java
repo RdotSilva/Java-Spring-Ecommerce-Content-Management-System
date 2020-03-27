@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -37,7 +38,16 @@ public class AdminProductsController {
     public String index(Model model) {
         List<Product> products = productRepository.findAll();
 
+        List<Category> categories = categoryRepository.findAll();
+
+        // Create a HasMap with each category and id
+        HashMap<Integer, String> cats = new HashMap<>();
+        for (Category cat : categories) {
+            cats.put(cat.getId(), cat.getName());
+        }
+
         model.addAttribute("products", products);
+        model.addAttribute("cats", cats);
 
         return "admin/products/index";
     }
