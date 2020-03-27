@@ -202,4 +202,20 @@ public class AdminProductsController {
         // Redirect when done
         return "redirect:/admin/products/edit/" + product.getId();
     }
+
+    // Delete a product
+    @GetMapping("/delete/{id}")
+    public String edit(@PathVariable int id, RedirectAttributes redirectAttributes) {
+
+        Product product = productRepository.getOne(id);
+
+        Product currentProduct = productRepository.getOne(product.getId());
+
+        productRepository.deleteById(id);
+
+        redirectAttributes.addFlashAttribute("message", product.getName() + " product deleted!");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+
+        return "redirect:/admin/products";
+    }
 }
