@@ -139,9 +139,9 @@ public class AdminProductsController {
         List<Category> categories = categoryRepository.findAll();
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("product", product.getName());
+            model.addAttribute("product", currentProduct.getName());
             model.addAttribute("categories", categories);
-            return "admin/products/add";
+            return "admin/products/edit";
         }
 
         // Check image file to make sure it is valid
