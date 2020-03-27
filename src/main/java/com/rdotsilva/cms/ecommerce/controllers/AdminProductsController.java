@@ -138,7 +138,29 @@ public class AdminProductsController {
         Product currentProduct = productRepository.getOne(product.getId());
         List<Category> categories = categoryRepository.findAll();
 
-        
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("product", product.getName());
+            model.addAttribute("categories", categories);
+            return "admin/products/add";
+        }
+
+        // Check image file to make sure it is valid
+        boolean fileOK = false;
+        byte[] bytes = file.getBytes();
+        String filename = file.getOriginalFilename();
+        Path path = Paths.get("src/main/resources/static/media/" + filename);
+
+        if (!file.isEmpty()) {
+            // Check for JPG or PNG only
+            if (filename.endsWith("jpg") || filename.endsWith("png")) {
+                fileOK = true;
+            }
+        } else {
+            fileOK = true;
+        }
+
+
+
 
         // Redirect when done
         return "redirect:/admin/products/edit/" + product.getId();
