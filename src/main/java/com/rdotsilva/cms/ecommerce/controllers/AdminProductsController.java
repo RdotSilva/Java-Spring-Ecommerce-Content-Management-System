@@ -160,7 +160,44 @@ public class AdminProductsController {
         }
 
 
+        // Display Product added if successful
+        redirectAttributes.addFlashAttribute("message", "Product Edited");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 
+        // Construct product slug
+        String slug = product.getName().toLowerCase().replace(" ", "-");
+
+        Product productExists = productRepository.findBySlugAndIdNot(slug, product.getId());
+
+        // If image file is not OK send error message
+        if (!fileOK ) {
+            redirectAttributes.addFlashAttribute("message", "Image must be JPG or PNG");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+            // Make form sticky (stays if there is an error)
+            redirectAttributes.addFlashAttribute("product", product);
+        }
+        // Check if product exists, if so then display errors, otherwise set the new product slug, new product image, and save repo
+        else if (productExists != null) {
+            redirectAttributes.addFlashAttribute("message", "Product already exists, choose another");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+            // Make form sticky (stays if there is an error)
+            redirectAttributes.addFlashAttribute("product", product);
+        } else {
+
+            product.setSlug(slug);
+
+            // Check if image exists and replace old image with new image
+            if (!file.isEmpty()) {
+                Path path2 = Paths.get("src/main/resources/static/media/" + currentProduct.getImage());
+                Files.delete(path2);
+                product.setImage(filename);
+                Files.write(path, bytes);
+            } else {
+                product.setImage(currentProduct.getImage());
+            }
+
+            productRepository.save(product);
+        }
 
         // Redirect when done
         return "redirect:/admin/products/edit/" + product.getId();
