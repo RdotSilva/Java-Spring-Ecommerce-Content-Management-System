@@ -3,16 +3,14 @@ package com.rdotsilva.cms.ecommerce.controllers;
 import com.rdotsilva.cms.ecommerce.models.CategoryRepository;
 import com.rdotsilva.cms.ecommerce.models.ProductRepository;
 import com.rdotsilva.cms.ecommerce.models.data.Category;
+import com.rdotsilva.cms.ecommerce.models.data.Page;
 import com.rdotsilva.cms.ecommerce.models.data.Product;
 import com.rdotsilva.cms.ecommerce.models.data.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -119,5 +117,18 @@ public class AdminProductsController {
 
         // Redirect when done
         return "redirect:/admin/products/add";
+    }
+
+    // Edit product, id is passed in from @PathVariable annotation below
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable int id, Model model) {
+
+        Product product = productRepository.getOne(id);
+        List<Category> categories = categoryRepository.findAll();
+
+        model.addAttribute("product", product);
+        model.addAttribute("categories", categories);
+
+        return "admin/products/edit";
     }
 }
