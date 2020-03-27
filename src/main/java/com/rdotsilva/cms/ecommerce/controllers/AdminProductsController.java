@@ -131,4 +131,16 @@ public class AdminProductsController {
 
         return "admin/products/edit";
     }
+
+    @PostMapping("/edit")
+    public String edit(@Valid Product product, BindingResult bindingResult, MultipartFile file, RedirectAttributes redirectAttributes, Model model) throws IOException {
+
+        Product currentProduct = productRepository.getOne(product.getId());
+        List<Category> categories = categoryRepository.findAll();
+
+        
+
+        // Redirect when done
+        return "redirect:/admin/products/edit/" + product.getId();
+    }
 }
