@@ -28,9 +28,9 @@
                         <td>
                             <img style="width: 100px;" th:src="@{'/media/' + ${product.image}}">
                         </td>
-                        // Get the value of category by accessing the key
+                        <!-- Get the value of category by accessing the key -->
                         <td th:text="${cats[__${product.categoryId}__]}"></td>
-                        <td th:text="${product.price}"></td>
+                        <td th:text="'$ ' + ${product.price}"></td>
                         <td th:text="${product.quantity}"></td>
                         <td><a th:href="@{'/admin/products/edit/' + ${product.id}}">Edit</a></td>
                         <td><a th:href="@{'/admin/products/delete/' + ${product.id}}" class="confirmDeletion">Delete</a></td>
