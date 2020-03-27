@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -37,7 +38,16 @@ public class AdminProductsController {
     public String index(Model model) {
         List<Product> products = productRepository.findAll();
 
+        List<Category> categories = categoryRepository.findAll();
+
+        // Create a HasMap with each category and id
+        HashMap<Integer, String> cats = new HashMap<>();
+        for (Category cat : categories) {
+            cats.put(cat.getId(), cat.getName());
+        }
+
         model.addAttribute("products", products);
+        model.addAttribute("cats", cats);
 
         return "admin/products/index";
     }
@@ -56,19 +66,20 @@ public class AdminProductsController {
     @PostMapping("/add")
     public String add(@Valid Product product, BindingResult bindingResult, MultipartFile file, RedirectAttributes redirectAttributes, Model model) throws IOException {
 
+        List<Category> categories = categoryRepository.findAll();
+
         Product currentProduct = productRepository.getOne(product.getId());
 
-        // Check product for errors
         if (bindingResult.hasErrors()) {
-            model.addAttribute("productName", currentProduct.getName());
-            return "admin/categories/add";
+            model.addAttribute("categories", categories);
+            return "admin/products/add";
         }
 
         // Check image file to make sure it is valid
         boolean fileOK = false;
         byte[] bytes = file.getBytes();
         String filename = file.getOriginalFilename();
-        Path path = Paths.get("src/main/resources/static");
+        Path path = Paths.get("src/main/resources/static/media/" + filename);
 
         // Check for JPG or PNG only
         if (filename.endsWith("jpg") || filename.endsWith("png")) {
@@ -89,11 +100,14 @@ public class AdminProductsController {
         if (!fileOK ) {
             redirectAttributes.addFlashAttribute("message", "Image must be JPG or PNG");
             redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+            // Make form sticky (stays if there is an error)
+            redirectAttributes.addFlashAttribute("product", product);
         }
         // Check if product exists, if so then display errors, otherwise set the new product slug, new product image, and save repo
         else if (productExists != null) {
             redirectAttributes.addFlashAttribute("message", "Product already exists, choose another");
             redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+            // Make form sticky (stays if there is an error)
             redirectAttributes.addFlashAttribute("product", product);
         } else {
             product.setSlug(slug);
