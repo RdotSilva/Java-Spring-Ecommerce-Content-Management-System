@@ -41,6 +41,9 @@
 
             <nav class="mt-3" th:if="${count > perPage}">
                 <ul class="pagination">
+                    <li class="page-item" th:if="${page > 0}">
+                        <a th:href="@{${#httpServletRequest.requestURI}} + '?page=__${page-1}__'" class="page-link">Previous</a>
+                    </li>
                     
                 </ul>
             </nav>
