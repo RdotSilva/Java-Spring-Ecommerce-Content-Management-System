@@ -4,6 +4,14 @@ $(function () {
         if (!confirm("Confirm deletion")) return false;
     });
 
+    if ( $("#content").length) {
+        ClassicEditor
+            .create(document.querySelector("#content"))
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
 });
 
 // Used to read the image file to display image preview
