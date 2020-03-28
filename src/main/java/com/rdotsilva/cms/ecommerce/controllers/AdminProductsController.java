@@ -3,10 +3,12 @@ package com.rdotsilva.cms.ecommerce.controllers;
 import com.rdotsilva.cms.ecommerce.models.CategoryRepository;
 import com.rdotsilva.cms.ecommerce.models.ProductRepository;
 import com.rdotsilva.cms.ecommerce.models.data.Category;
-import com.rdotsilva.cms.ecommerce.models.data.Page;
 import com.rdotsilva.cms.ecommerce.models.data.Product;
 import com.rdotsilva.cms.ecommerce.models.data.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,8 +35,15 @@ public class AdminProductsController {
     private CategoryRepository categoryRepository;
 
     @GetMapping
-    public String index(Model model) {
-        List<Product> products = productRepository.findAll();
+    public String index(Model model, @RequestParam(value="page", required = false) Integer p) {
+
+        int perPage = 6;
+        int page = (p != null) ? p : 0;
+
+        // Use Pageable for pagination, page is the current page, perPage is the number of results per page.
+        Pageable pageable = PageRequest.of(page, perPage);
+
+        Page<Product> products = productRepository.findAll(pageable);
 
         List<Category> categories = categoryRepository.findAll();
 
