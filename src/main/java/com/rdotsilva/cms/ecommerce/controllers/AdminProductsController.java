@@ -56,6 +56,15 @@ public class AdminProductsController {
         model.addAttribute("products", products);
         model.addAttribute("cats", cats);
 
+        // Calculate the total number of pages needed
+        Long count = productRepository.count();
+        double pageCount = Math.ceil((double)count / (double) perPage);
+
+        model.addAttribute("pageCount", (int)pageCount);
+        model.addAttribute("perPage", perPage);
+        model.addAttribute("count", count);
+        model.addAttribute("page", page);
+
         return "admin/products/index";
     }
 
