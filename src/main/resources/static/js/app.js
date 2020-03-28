@@ -12,6 +12,14 @@ $(function () {
             });
     }
 
+    if ( $("#description").length) {
+        ClassicEditor
+            .create(document.querySelector("#description"))
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
 });
 
 // Used to read the image file to display image preview
