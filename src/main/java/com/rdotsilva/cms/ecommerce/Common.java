@@ -20,6 +20,6 @@ public class Common {
 
         List<Page> pages = pageRepository.findAllByOrderBySortingAsc();
 
-        model.addAttribute("cpages");
+        model.addAttribute("cpages", pages);
     }
 }
