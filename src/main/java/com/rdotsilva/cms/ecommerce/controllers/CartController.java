@@ -34,7 +34,18 @@ public class CartController {
             cart.put(id, new Cart(id, product.getName(), product.getPrice(), 1, product.getImage()));
             session.setAttribute("cart", cart);
 
-        } 
+        } else {
+            // Add items to current existing cart
+            HashMap<Integer, Cart> cart = (HashMap<Integer, Cart>)session.getAttribute("cart");
+            if (cart.containsKey(id)) {
+                int quantity = cart.get(id).getQuantity();
+                cart.put(id, new Cart(id, product.getName(), product.getPrice(), ++quantity, product.getImage()));
+            } else {
+                cart.put(id, new Cart(id, product.getName(), product.getPrice(), 1, product.getImage()));
+                session.setAttribute("cart", cart);
+            }
+
+        }
 
         return null;
 
