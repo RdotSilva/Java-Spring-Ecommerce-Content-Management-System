@@ -55,9 +55,9 @@ public class CategoriesController {
 
             int categoryId = category.getId();
             String categoryName = category.getName();
-            List<Product> products = productRepository.findAllByCategoryId(categoryId, pageable);
+            List<Product> products = productRepository.findAllByCategoryId(Integer.toString(categoryId), pageable);
 
-            count = productRepository.countByCategoryId(categoryId);
+            count = productRepository.countByCategoryId(Integer.toString(categoryId));
 
             model.addAttribute("products", products);
             model.addAttribute("categoryName", categoryName);
