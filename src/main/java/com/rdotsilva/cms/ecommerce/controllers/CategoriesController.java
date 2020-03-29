@@ -37,7 +37,31 @@ public class CategoriesController {
         // Use Pageable for pagination, page is the current page, perPage is the number of results per page.
         Pageable pageable = PageRequest.of(page, perPage);
 
-        
+        long count = 0;
+
+        if (slug.equals("all")) {
+            Page<Product> products = productRepository.findAll(pageable);
+
+            count = productRepository.count();
+
+            model.addAttribute("products", products);
+        } else {
+            
+            Category category = categoryRepository.findBySlug(slug);
+
+            if (category == null) {
+                return "redirect:/";
+            }
+
+            int categoryId = category.getId();
+            String categoryName = category.getName();
+            List<Product> products = productRepository.findAllByCategoryId(categoryId, pageable);
+
+            count = productRepository.countByCategoryId(categoryId);
+
+            model.addAttribute("products", products);
+            model.addAttribute("categoryName", categoryName);
+        }
 
         // Calculate the total number of pages needed
         double pageCount = Math.ceil((double)count / (double) perPage);
