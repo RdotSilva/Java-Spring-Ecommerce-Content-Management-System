@@ -28,6 +28,7 @@
                             <a class="btn btn-primary addToCart" th:attr="data-id=${product.id}"  th:href="@{'/cart/add/' + ${product.id}}">Add to cart</a>
                             <img src="/images/ajax-loader.gif" class="ajaxLoader d-none">
                         </p>
+                        <div class="btn btn-sm btn-success hide productAdded">Product Added!</div>
                     </div>
                 </div>
             </div>
