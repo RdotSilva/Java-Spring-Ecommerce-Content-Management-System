@@ -7,4 +7,7 @@
             <a href="/cart/clear" class="btn btn-danger float-right">Clear Cart</a>
         </p>
     </div>
+    <div class="cart cartInactive" th:unless="${cartActive}">
+        <p>You cart is empty.</p>
+    </div>
 </div>
