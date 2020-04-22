@@ -44,11 +44,21 @@ public class CartController {
                 cart.put(id, new Cart(id, product.getName(), product.getPrice(), 1, product.getImage()));
                 session.setAttribute("cart", cart);
             }
-
         }
 
-        return null;
+        // Get contents of cart
+        HashMap<Integer, Cart> cart = (HashMap<Integer, Cart>)session.getAttribute("cart");
+        int itemsInCart = 0;
+        double total = 0;
 
+        for (Cart value : cart.values()) {
+            itemsInCart += value.getQuantity();
+            total += value.getQuantity() * Double.parseDouble(value.getPrice());
+        }
+
+        model.addAttribute("csize", itemsInCart);
+        model.addAttribute("ctotal", total);
+
+        return "cart_view";
     }
-
 }
