@@ -25,8 +25,8 @@
                     <p th:text="'$' + ${product.price}"></p>
                     <div style="position: relative;">
                         <p>
-                            <a href="#">Add to cart</a>
-
+                            <a class="btn btn-primary addToCart" th:attr="data-id=${product.id}"  th:href="@{'/cart/add/' + ${product.id}}">Add to cart</a>
+                            <img src="/images/ajax-loader.gif" class="ajaxLoader d-none">
                         </p>
                     </div>
                 </div>
