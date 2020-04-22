@@ -52,5 +52,6 @@ public class Common {
 
         model.addAttribute("cpages", pages);
         model.addAttribute("ccategories", categories);
+        model.addAttribute("cartActive", cartActive);
     }
 }
