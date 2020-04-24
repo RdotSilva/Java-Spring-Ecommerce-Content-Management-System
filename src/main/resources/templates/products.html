@@ -53,6 +53,21 @@
 
 <div th:replace="/fragments/footer"></div>
 
+<script>
+    $("a.addToCart").click(function (e) {
+        e.preventDefault();
+
+        let $this = $(this);
+
+        $this.next().removeClass('d-none');
+
+        let id = $this.attr("data-id");
+        let url = "/cart/add/"+id;
+
+        
+    });
+</script>
+
 </body>
 
 </html>
