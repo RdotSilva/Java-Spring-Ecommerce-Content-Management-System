@@ -64,5 +64,15 @@ public class CartController {
 
     @RequestMapping("/view")
     public String view(HttpSession session, Model model) {
+
+        if (session.getAttribute("cart") == null) {
+            return "redirect:/";
+        }
+
+        // Get contents of cart
+        HashMap<Integer, Cart> cart = (HashMap<Integer, Cart>)session.getAttribute("cart");
+        model.addAttribute("cart", cart);
+
+        return null;
     }
 }
