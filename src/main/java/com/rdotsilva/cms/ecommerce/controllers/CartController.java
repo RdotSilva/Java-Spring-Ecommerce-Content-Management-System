@@ -61,4 +61,8 @@ public class CartController {
 
         return "cart_view";
     }
+
+    @RequestMapping("/view")
+    public String view(HttpSession session, Model model) {
+    }
 }
