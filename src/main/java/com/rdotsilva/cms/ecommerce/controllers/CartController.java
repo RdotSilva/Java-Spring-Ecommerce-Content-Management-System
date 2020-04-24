@@ -56,8 +56,8 @@ public class CartController {
             total += value.getQuantity() * Double.parseDouble(value.getPrice());
         }
 
-        model.addAttribute("csize", itemsInCart);
-        model.addAttribute("ctotal", total);
+        model.addAttribute("size", itemsInCart);
+        model.addAttribute("total", total);
 
         return "cart_view";
     }
