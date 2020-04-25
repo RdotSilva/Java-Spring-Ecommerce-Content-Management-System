@@ -22,6 +22,9 @@
                 </tr>
                 <tr th:each="el: ${cart}">
                     <td th:text="${el.value.name}"></td>
+                    <td>
+                        <img style="width: 100px;" th:src="@{'/media/' + ${el.value.image}}" />
+                    </td>
             </table>
         </div>
         <div class="col"></div>
