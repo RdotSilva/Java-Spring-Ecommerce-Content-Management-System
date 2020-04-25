@@ -20,6 +20,8 @@
                     <th>Price</th>
                     <th>Total</th>
                 </tr>
+                <tr th:each="el: ${cart}">
+                    <td th:text="${el.value.name}"></td>
             </table>
         </div>
         <div class="col"></div>
