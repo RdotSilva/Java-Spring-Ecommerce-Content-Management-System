@@ -73,6 +73,6 @@ public class CartController {
         HashMap<Integer, Cart> cart = (HashMap<Integer, Cart>)session.getAttribute("cart");
         model.addAttribute("cart", cart);
 
-        return null;
+        return "cart";
     }
 }
