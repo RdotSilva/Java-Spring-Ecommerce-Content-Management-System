@@ -79,6 +79,7 @@ public class CartController {
         // Get contents of cart
         HashMap<Integer, Cart> cart = (HashMap<Integer, Cart>)session.getAttribute("cart");
         model.addAttribute("cart", cart);
+        model.addAttribute("notCartViewPage", true);
 
         return "cart";
     }
