@@ -69,7 +69,13 @@ public class CartController {
         return "cart_view";
     }
 
-    @RequestMapping("/view")
+    @GetMapping("/subtract/{id}")
+    public String subtract(@PathVariable int id, HttpSession session, Model model) {
+        // TODO: implement subtract method to lower cart quantity
+        return null;
+    }
+
+        @RequestMapping("/view")
     public String view(HttpSession session, Model model) {
 
         if (session.getAttribute("cart") == null) {
