@@ -27,7 +27,7 @@
                     </td>
                     <td>
                         <span th:text="${el.value.quantity}"></span>
-                        <a th:href="@{'/cart/add/'+${el.value.id}}" class="btn btn-success btn-sm">+</a>
+                        <a th:href="@{'/cart/add/'+${el.value.id}}+'?cartPage=true'" class="btn btn-success btn-sm">+</a>
                         <a th:href="@{'/cart/subtract/'+${el.value.id}}" class="btn btn-primary btn-sm">-</a>
                         <a th:href="@{'/cart/remove/'+${el.value.id}}" class="btn btn-danger btn-sm">remove</a>
                     </td>
