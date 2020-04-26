@@ -61,6 +61,11 @@ public class CartController {
         model.addAttribute("size", itemsInCart);
         model.addAttribute("total", total);
 
+        // If on cart page already then redirect
+        if (cartPage != null) {
+            return "redirect:/cart/view";
+        }
+
         return "cart_view";
     }
 
